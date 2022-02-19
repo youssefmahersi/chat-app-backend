@@ -1,0 +1,32 @@
+{
+  "name": "chat-app-backend",
+  "version": "1.0.0",
+  "description": "A devchallenges challenge to create a chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youssefmahersi/chat-app-backend.git"
+  },
+  "author": "youssef",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youssefmahersi/chat-app-backend/issues"
+  },
+  "homepage": "https://github.com/youssefmahersi/chat-app-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.2",
+    "socketio": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
