@@ -14,7 +14,7 @@ function login(user, password, hashedPassword, res) {
         const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: "30d",
         });
-        return res.status(200).json({"message":"authentication process succeeded","token":token});
+        return res.status(200).json({"message":"authentication process succeeded","token":token, user});
       } else
         return res.status(400).send({
           field: "password",
