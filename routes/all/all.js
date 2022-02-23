@@ -10,6 +10,5 @@ router.get("/search-channel",authMiddleware,allControllers.searchChannel);
 
 // //Post methods
 router.post("/create-channel",authMiddleware,allControllers.createChannel);
-router.post("/send-message",authMiddleware,allControllers.sendMessage);
 
 module.exports = router;

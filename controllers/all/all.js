@@ -51,7 +51,7 @@ catch(err){
 
 exports.searchChannel = async(req,res,next)=>{
     try{
-    const channelName = req.body.channelName ;
+    const channelName = req.body.channelName;
     const channel = await Channel.findOne({name : channelName});
     if(!channel){
         return res.status(404).send("channel not Found !");
@@ -84,7 +84,7 @@ exports.createChannel = async(req,res,next)=>{
     const channel = new Channel({
         name : channelName,
         users: [
-            {
+            {   
                 username: user.username
             }
         ],
