@@ -6,9 +6,9 @@ const router = express.Router();
 //Get methods
 router.get("/get-home",authMiddleware,allControllers.getUser);
 router.get("/get-channel/:channelId",authMiddleware,allControllers.getChannel);
-router.get("/search-channel",authMiddleware,allControllers.searchChannel);
 
 // //Post methods
+router.post("/search-channel",authMiddleware,allControllers.searchChannel);
 router.post("/create-channel",authMiddleware,allControllers.createChannel);
 
 module.exports = router;
