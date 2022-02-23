@@ -92,7 +92,7 @@ exports.createChannel = async(req,res,next)=>{
     })
     
     result = await channel.save();
-    return res.status(201).send("channel created successfuly !");
+    return res.status(201).send(result);
 }
 catch(err){
     if (!err.statusCode) {
