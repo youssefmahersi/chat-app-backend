@@ -76,11 +76,7 @@ exports.createChannel = async(req,res,next)=>{
     if(findChannel){
         return res.status(400).send("channel alerady exist !");
     }
-    user.channels.push({
-        channelName : channelName,
-        channelDescription: channelDesc
-    });
-    var result = await user.save();
+    
     const channel = new Channel({
         name : channelName,
         users: [
@@ -90,7 +86,13 @@ exports.createChannel = async(req,res,next)=>{
         ],
         chat: []
     })
-    
+    console.log(channel)
+    user.channels.push({
+        channelId : channel._id,
+        channelName : channelName,
+        channelDescription: channelDesc
+    });
+    var result = await user.save();
     result = await channel.save();
     return res.status(201).send(result);
 }
