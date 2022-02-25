@@ -1,5 +1,6 @@
 const User = require("../../models/user");
 const Channel = require("../../models/channel");
+const { find } = require("../../models/user");
 
 exports.getUser = async(req,res,next)=>{
     try{
@@ -52,13 +53,32 @@ catch(err){
 exports.searchChannel = async(req,res,next)=>{
     try{
     const channelName = req.body.channelName;
+    console.log(channelName)
     const channel = await Channel.findOne({name : channelName});
     if(!channel){
         return res.status(404).send("channel not Found !");
 
     }
+    console.log(channel);
+    const user = await User.findOne({username:req.username});
+    const findChannel = user.channels.find((chan)=> chan.name === channel.name);
+    if(findChannel){
+        return res.status(200).json({"channel": channel});
+    }
+    user.channels.push({
+        channelId : channel._id,
+        channelName: channel.name,
+        channelDescription: channel.channelDescription
+    });
+    channel.users.push({
+        username : user.username
+    })
+
+    var result = await user.save();
+    result = await channel.save();
     return res.status(200).json({"channel": channel});
 }catch(err){
+    console.log(err)
     if (!err.statusCode) {
         err.statusCode = 500;
       }
@@ -66,10 +86,12 @@ exports.searchChannel = async(req,res,next)=>{
 }
 }
 
+
+
 exports.createChannel = async(req,res,next)=>{
     try{
     const channelName = req.body.channelName;
-    const channelDesc = req.body.channelDescription;
+    const channelDesc = req.body.channelDescription||'Channel Descr';
     const username = req.username;
     const user = await User.findOne({username});
     const findChannel = user.channels.find((channel)=> channel.channelName === channelName);
@@ -79,6 +101,7 @@ exports.createChannel = async(req,res,next)=>{
     
     const channel = new Channel({
         name : channelName,
+        channelDescription: channelDesc,
         users: [
             {   
                 username: user.username
@@ -86,7 +109,6 @@ exports.createChannel = async(req,res,next)=>{
         ],
         chat: []
     })
-    console.log(channel)
     user.channels.push({
         channelId : channel._id,
         channelName : channelName,
