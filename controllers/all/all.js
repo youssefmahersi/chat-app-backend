@@ -35,7 +35,7 @@ exports.getChannel = async(req,res,next)=>{
     if(!channel){
         return res.status(404).send("channel not found");
     }
-    const user = await User.findOne({username : username});
+    const user = await User.findOne({username : req.username});
     const findChannel = user.channels.find((chan)=> chan._id.toString()=== channel._id.toString());
     if(findChannel){
         return res.status(200).send(channel);
@@ -53,7 +53,6 @@ catch(err){
 exports.searchChannel = async(req,res,next)=>{
     try{
     const channelName = req.body.channelName;
-    console.log(channelName)
     const channel = await Channel.findOne({name : channelName});
     if(!channel){
         return res.status(404).send("channel not Found !");
